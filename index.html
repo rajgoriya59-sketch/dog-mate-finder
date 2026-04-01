@@ -1,9 +1,12 @@
+Here's your **updated DogsMeeting website with payment system**:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DogsMeeting ❤️ - Find Perfect Breeding Partners</title>
+    <title>DogsMeeting ❤️ - Premium Dog Matching</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -17,6 +20,12 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-theme {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
         }
 
         .container {
@@ -53,6 +62,20 @@
             to { transform: scale(1.1); }
         }
 
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+
         /* WhatsApp Button */
         .whatsapp-btn {
             display: inline-block;
@@ -65,11 +88,6 @@
             margin: 20px 0;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
             transition: all 0.3s ease;
-        }
-
-        .whatsapp-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
         }
 
         /* Main Content */
@@ -85,6 +103,13 @@
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .form-section,
+        body.dark-theme .gallery-section {
+            background: #2d3748;
+            color: #e2e8f0;
         }
 
         .section-title {
@@ -106,6 +131,10 @@
             color: #555;
         }
 
+        body.dark-theme label {
+            color: #cbd5e0;
+        }
+
         input, textarea, select {
             width: 100%;
             padding: 12px 15px;
@@ -113,19 +142,18 @@
             border-radius: 10px;
             font-size: 16px;
             transition: border-color 0.3s ease;
+            background: white;
         }
 
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        body.dark-theme input,
+        body.dark-theme textarea,
+        body.dark-theme select {
+            background: #4a5568;
+            color: #e2e8f0;
+            border-color: #718096;
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
+        /* Upload Area */
         .upload-area {
             border: 3px dashed #667eea;
             border-radius: 15px;
@@ -136,29 +164,9 @@
             background: #f8f9ff;
         }
 
-        .upload-area:hover {
-            background: #eef2ff;
-            border-color: #5a67d8;
-        }
-
-        .upload-area.dragover {
-            background: #e6f3ff;
-            border-color: #4299e1;
-            transform: scale(1.02);
-        }
-
-        .upload-icon {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        #preview {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 10px;
-            margin-top: 15px;
-            display: none;
+        body.dark-theme .upload-area {
+            background: #4a5568;
+            border-color: #63b3ed;
         }
 
         /* Buttons */
@@ -175,12 +183,7 @@
             width: 100%;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Gallery */
+        /* Dog Cards */
         .dog-card {
             background: #f8f9fa;
             border-radius: 15px;
@@ -190,8 +193,8 @@
             transition: transform 0.3s ease;
         }
 
-        .dog-card:hover {
-            transform: translateY(-5px);
+        body.dark-theme .dog-card {
+            background: #4a5568;
         }
 
         .dog-image {
@@ -207,9 +210,15 @@
             margin-bottom: 10px;
         }
 
-        .dog-location {
-            color: #666;
+        .premium-lock {
+            color: #ff6b6b;
+            font-weight: bold;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
             font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
         }
 
         .contact-buttons {
@@ -220,7 +229,7 @@
 
         .contact-btn {
             flex: 1;
-            padding: 10px;
+            padding: 12px;
             border: none;
             border-radius: 8px;
             font-weight: bold;
@@ -240,6 +249,171 @@
             color: white;
         }
 
+        .premium-btn {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .premium-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* PAYMENT MODAL */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .payment-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .payment-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            animation: bounceIn 0.5s ease;
+        }
+
+        body.dark-theme .payment-content {
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .payment-header {
+            color: #f5576c;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .payment-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #10b981;
+            margin: 20px 0;
+            background: linear-gradient(45deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .upi-qr {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .upi-id {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1f2937;
+            word-break: break-all;
+            background: #f3f4f6;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        body.dark-theme .upi-id {
+            background: #4a5568;
+            color: #e2e8f0;
+        }
+
+        .payment-note {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        body.dark-theme .payment-note {
+            background: #78350f;
+            color: #f59e0b;
+        }
+
+        .paid-btn {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .paid-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.6);
+        }
+
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #a7f3d0;
+            display: none;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .main-content {
@@ -250,31 +424,25 @@
                 font-size: 2rem;
             }
             
-            .heart {
-                font-size: 2rem;
+            .payment-content {
+                padding: 30px 20px;
+                margin: 20px;
             }
-        }
-
-        /* Success Message */
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #c3e6cb;
-            display: none;
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <div class="container">
         <div class="header">
             <div class="logo">Dogs<span class="heart">❤️</span>Meeting</div>
-            <p style="font-size: 1.2rem; opacity: 0.9;">Find the perfect breeding partner for your dog!</p>
-            <a href="https://wa.me/1234567890?text=Hi!%20I'm%20interested%20in%20DogsMeeting%20app%20for%20my%20dog%20breeding%20needs!" 
+            <p style="font-size: 1.2rem; opacity: 0.9;">Premium Dog Matching Service - ₹299 per connection</p>
+            <a href="https://wa.me/1234567890?text=Hi!%20I%20need%20help%20with%20DogsMeeting%20Premium" 
                class="whatsapp-btn" target="_blank">
-                <i class="fab fa-whatsapp"></i> Contact Support on WhatsApp
+                <i class="fab fa-whatsapp"></i> Support WhatsApp
             </a>
         </div>
 
@@ -283,7 +451,7 @@
             <div class="form-section">
                 <h2 class="section-title"><i class="fas fa-paw"></i> Add Your Dog</h2>
                 <div id="successMessage" class="success-message">
-                    <i class="fas fa-check-circle"></i> Your dog has been added successfully! Other owners can now contact you.
+                    <i class="fas fa-check-circle"></i> Your dog profile is live! Premium users can now connect with you.
                 </div>
                 
                 <form id="dogForm">
@@ -331,195 +499,75 @@
                         <label>Upload Dog Photo</label>
                         <div class="upload-area" id="uploadArea">
                             <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                            <p>Click to upload or drag & drop your dog's photo</p>
-                            <p style="font-size: 0.9rem; color: #666;">JPG, PNG (Max 5MB)</p>
+                            <p>Click to upload or drag & drop</p>
                             <img id="preview" src="" alt="Preview">
                         </div>
                         <input type="file" id="dogPhoto" accept="image/*" style="display: none;">
                     </div>
                     
                     <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" id="phone" placeholder="+1 (555) 123-4567" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Additional Info</label>
-                        <textarea id="additionalInfo" placeholder="Health info, temperament, vaccination status, etc..."></textarea>
+                        <label>Phone Number (Premium Access Only)</label>
+                        <input type="tel" id="phone" placeholder="Premium users will see this" required>
                     </div>
                     
                     <button type="submit" class="btn">
-                        <i class="fas fa-paw"></i> Add My Dog for Breeding
+                        <i class="fas fa-paw"></i> Add My Dog Profile
                     </button>
                 </form>
             </div>
 
-            <!-- Available Dogs Gallery -->
+            <!-- Dogs Gallery -->
             <div class="gallery-section">
-                <h2 class="section-title"><i class="fas fa-dogs"></i> Available Dogs Nearby</h2>
-                <div id="dogsGallery">
-                    <!-- Dogs will be populated here -->
-                </div>
+                <h2 class="section-title"><i class="fas fa-dogs"></i> Premium Dog Matches</h2>
+                <div id="dogsGallery"></div>
             </div>
         </div>
     </div>
 
+    <!-- PAYMENT MODAL -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-content">
+            <button class="close-modal" onclick="closePaymentModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="payment-header">
+                <i class="fas fa-lock-open"></i> Unlock Contact Details
+            </div>
+            
+            <div class="payment-amount">₹299</div>
+            
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                Pay to connect with this dog owner for breeding
+            </p>
+            
+            <img src="https://via.placeholder.com/200x200/25D366/FFFFFF?text=UPI+QR+CODE" 
+                 alt="UPI QR Code" class="upi-qr" id="upiQR">
+            
+            <div class="upi-id" id="upiID">
+                yourname@paytm
+            </div>
+            
+            <div class="payment-note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Payment Instructions:</strong><br>
+                Scan QR code or send ₹299 to UPI ID above.<br>
+                <strong>Access will be granted after payment verification</strong>
+            </div>
+            
+            <button class="paid-btn" onclick="confirmPayment()">
+                <i class="fas fa-check"></i> I Have Paid ₹299
+            </button>
+            
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">
+                Didn't receive access? <a href="https://wa.me/1234567890" target="_blank">Contact Support</a>
+            </p>
+        </div>
+    </div>
+
     <script>
-        // Sample dogs data (in real app, this would come from a database)
+        // Dogs data with payment status
         let dogs = [
             {
                 id: 1,
-                name: "Max",
-                breed: "Labrador",
-                gender: "Male",
-                age: 2,
-                location: "New York, NY",
-                phone: "+1 (555) 123-4567",
-                image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=300&fit=crop",
-                info: "Healthy, vaccinated, friendly temperament"
-            },
-            {
-                id: 2,
-                name: "Bella",
-                breed: "Golden Retriever",
-                gender: "Female",
-                age: 3,
-                location: "Los Angeles, CA",
-                phone: "+1 (555) 987-6543",
-                image: "https://images.unsplash.com/photo-1544568100-847a948585b9?w=400&h=300&fit=crop",
-                info: "Pure breed, excellent health record"
-            },
-            {
-                id: 3,
-                name: "Rocky",
-                breed: "German Shepherd",
-                gender: "Male",
-                age: 4,
-                location: "Chicago, IL",
-                phone: "+1 (555) 456-7890",
-                image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&h=300&fit=crop",
-                info: "Strong and healthy, fully vaccinated"
-            }
-        ];
-
-        // Load dogs on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            displayDogs();
-        });
-
-        // File upload functionality
-        const uploadArea = document.getElementById('uploadArea');
-        const fileInput = document.getElementById('dogPhoto');
-        const preview = document.getElementById('preview');
-
-        uploadArea.addEventListener('click', () => fileInput.click());
-
-        fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Drag and drop
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('dragover');
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('dragover');
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                fileInput.files = files;
-                handleFileUpload(files[0]);
-            }
-        });
-
-        function handleFileUpload(file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // Form submission
-        document.getElementById('dogForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('dogName').value,
-                breed: document.getElementById('dogBreed').value,
-                gender: document.getElementById('dogGender').value,
-                age: document.getElementById('dogAge').value,
-                location: document.getElementById('location').value,
-                phone: document.getElementById('phone').value,
-                image: preview.src,
-                info: document.getElementById('additionalInfo').value
-            };
-
-            // Add to dogs array (in real app, send to server)
-            const newDog = {
-                id: dogs.length + 1,
-                ...formData
-            };
-            dogs.unshift(newDog); // Add to beginning for latest first
-
-            // Show success message
-            document.getElementById('successMessage').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 5000);
-
-            // Reset form
-            this.reset();
-            preview.style.display = 'none';
-
-            // Refresh gallery
-            displayDogs();
-        });
-
-        // Display dogs in gallery
-        function displayDogs() {
-            const gallery = document.getElementById('dogsGallery');
-            gallery.innerHTML = '';
-
-            dogs.forEach(dog => {
-                const dogCard = document.createElement('div');
-                dogCard.className = 'dog-card';
-                dogCard.innerHTML = `
-                    <img src="${dog.image}" alt="${dog.name}" class="dog-image">
-                    <div class="dog-info">
-                        <h4><i class="fas fa-paw"></i> ${dog.name}</h4>
-                        <p><strong>Breed:</strong> ${dog.breed} | <strong>Gender:</strong> ${dog.gender} | <strong>Age:</strong> ${dog.age} years</p>
-                        <p class="dog-location"><i class="fas fa-map-marker-alt"></i> ${dog.location}</p>
-                        ${dog.info ? `<p><strong>Info:</strong> ${dog.info}</p>` : ''}
-                        <div class="contact-buttons">
-                            <a href="https://wa.me/${dog.phone.replace(/\D/g, '')}?text=Hi!%20I'm%20interested%20in%20breeding%20with%20${dog.name}%20(${dog.breed})" 
-                               class="contact-btn whatsapp-contact" target="_blank">
-                                <i class="fab fa-whatsapp"></i> WhatsApp
-                            </a>
-                            <a href="tel:${dog.phone}" class="contact-btn phone-contact">
-                                <i class="fas fa-phone"></i> Call
-                            </a>
-                        </div>
-                    </div>
-                `;
-                gallery.appendChild(dogCard);
-            });
-        }
-    </script>
-</body>
-</html>
+                name:
