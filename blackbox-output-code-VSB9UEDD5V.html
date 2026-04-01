@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DogsMeeting ❤️ - Find Perfect Breeding Partners</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            font-size: 2.5rem;
+            animation: heartbeat 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes heartbeat {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .form-section, .gallery-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        .upload-area:hover {
+            background: #eef2ff;
+            border-color: #5a67d8;
+        }
+
+        .upload-area.dragover {
+            background: #e6f3ff;
+            border-color: #4299e1;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        #preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Gallery */
+        .dog-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .dog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .dog-info h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .dog-location {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-contact {
+            background: #25D366;
+            color: white;
+        }
+
+        .phone-contact {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .heart {
+                font-size: 2rem;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Dogs<span class="heart">❤️</span>Meeting</div>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Find the perfect breeding partner for your dog!</p>
+            <a href="https://wa.me/1234567890?text=Hi!%20I'm%20interested%20in%20DogsMeeting%20app%20for%20my%20dog%20breeding%20needs!" 
+               class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Contact Support on WhatsApp
+            </a>
+        </div>
+
+        <div class="main-content">
+            <!-- Add Dog Form -->
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-paw"></i> Add Your Dog</h2>
+                <div id="successMessage" class="success-message">
+                    <i class="fas fa-check-circle"></i> Your dog has been added successfully! Other owners can now contact you.
+                </div>
+                
+                <form id="dogForm">
+                    <div class="form-group">
+                        <label>Dog Name</label>
+                        <input type="text" id="dogName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Breed</label>
+                        <select id="dogBreed" required>
+                            <option value="">Select Breed</option>
+                            <option value="Labrador">Labrador</option>
+                            <option value="German Shepherd">German Shepherd</option>
+                            <option value="Golden Retriever">Golden Retriever</option>
+                            <option value="Bulldog">Bulldog</option>
+                            <option value="Beagle">Beagle</option>
+                            <option value="Poodle">Poodle</option>
+                            <option value="Rottweiler">Rottweiler</option>
+                            <option value="Boxer">Boxer</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="dogGender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Age (years)</label>
+                        <input type="number" id="dogAge" min="0" max="20" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" id="location" placeholder="City, State" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Upload Dog Photo</label>
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                            <p>Click to upload or drag & drop your dog's photo</p>
+                            <p style="font-size: 0.9rem; color: #666;">JPG, PNG (Max 5MB)</p>
+                            <img id="preview" src="" alt="Preview">
+                        </div>
+                        <input type="file" id="dogPhoto" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+1 (555) 123-4567" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Additional Info</label>
+                        <textarea id="additionalInfo" placeholder="Health info, temperament, vaccination status, etc..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-paw"></i> Add My Dog for Breeding
+                    </button>
+                </form>
+            </div>
+
+            <!-- Available Dogs Gallery -->
+            <div class="gallery-section">
+                <h2 class="section-title"><i class="fas fa-dogs"></i> Available Dogs Nearby</h2>
+                <div id="dogsGallery">
+                    <!-- Dogs will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample dogs data (in real app, this would come from a database)
+        let dogs = [
+            {
+                id: 1,
+                name: "Max",
+                breed: "Labrador",
+                gender: "Male",
+                age: 2,
+                location: "New York, NY",
+                phone: "+1 (555) 123-4567",
+                image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=300&fit=crop",
+                info: "Healthy, vaccinated, friendly temperament"
+            },
+            {
+                id: 2,
+                name: "Bella",
+                breed: "Golden Retriever",
+                gender: "Female",
+                age: 3,
+                location: "Los Angeles, CA",
+                phone: "+1 (555) 987-6543",
+                image: "https://images.unsplash.com/photo-1544568100-847a948585b9?w=400&h=300&fit=crop",
+                info: "Pure breed, excellent health record"
+            },
+            {
+                id: 3,
+                name: "Rocky",
+                breed: "German Shepherd",
+                gender: "Male",
+                age: 4,
+                location: "Chicago, IL",
+                phone: "+1 (555) 456-7890",
+                image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&h=300&fit=crop",
+                info: "Strong and healthy, fully vaccinated"
+            }
+        ];
+
+        // Load dogs on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displayDogs();
+        });
+
+        // File upload functionality
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('dogPhoto');
+        const preview = document.getElementById('preview');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileUpload(files[0]);
+            }
+        });
+
+        function handleFileUpload(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Form submission
+        document.getElementById('dogForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('dogName').value,
+                breed: document.getElementById('dogBreed').value,
+                gender: document.getElementById('dogGender').value,
+                age: document.getElementById('dogAge').value,
+                location: document.getElementById('location').value,
+                phone: document.getElementById('phone').value,
+                image: preview.src,
+                info: document.getElementById('additionalInfo').value
+            };
+
+            // Add to dogs array (in real app, send to server)
+            const newDog = {
+                id: dogs.length + 1,
+                ...formData
+            };
+            dogs.unshift(newDog); // Add to beginning for latest first
+
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+
+            // Reset form
+            this.reset();
+            preview.style.display = 'none';
+
+            // Refresh gallery
+            displayDogs();
+        });
+
+        // Display dogs in gallery
+        function displayDogs() {
+            const gallery = document.getElementById('dogsGallery');
+            gallery.innerHTML = '';
+
+            dogs.forEach(dog => {
+                const dogCard = document.createElement('div');
+                dogCard.className = 'dog-card';
+                dogCard.innerHTML = `
+                    <img src="${dog.image}" alt="${dog.name}" class="dog-image">
+                    <div class="dog-info">
+                        <h4><i class="fas fa-paw"></i> ${dog.name}</h4>
+                        <p><strong>Breed:</strong> ${dog.breed} | <strong>Gender:</strong> ${dog.gender} | <strong>Age:</strong> ${dog.age} years</p>
+                        <p class="dog-location"><i class="fas fa-map-marker-alt"></i> ${dog.location}</p>
+                        ${dog.info ? `<p><strong>Info:</strong> ${dog.info}</p>` : ''}
+                        <div class="contact-buttons">
+                            <a href="https://wa.me/${dog.phone.replace(/\D/g, '')}?text=Hi!%20I'm%20interested%20in%20breeding%20with%20${dog.name}%20(${dog.breed})" 
+                               class="contact-btn whatsapp-contact" target="_blank">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            <a href="tel:${dog.phone}" class="contact-btn phone-contact">
+                                <i class="fas fa-phone"></i> Call
+                            </a>
+                        </div>
+                    </div>
+                `;
+                gallery.appendChild(dogCard);
+            });
+        }
+    </script>
+</body>
+</html>
